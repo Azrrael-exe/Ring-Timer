@@ -60,8 +60,8 @@ void loop(){
     lcd.setCursor(5, 1);
     lcd.print(delay_timer);
   }
-  // if(digitalRead(TRIGGER_PIN) || trigger){
-  if(trigger || digitalRead(SENSOR_PIN)){
+  // if(trigger || digitalRead(SENSOR_PIN)){
+  if(digitalRead(SENSOR_PIN)){
     stepOne(pixels, 333, 3, 0x640000);
     stepTwo(pixels, delay_timer, 0x640000);
     stepTree(pixels, 0x646464, TRIGGER_PIN);
