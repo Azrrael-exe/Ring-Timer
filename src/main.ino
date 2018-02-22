@@ -5,6 +5,7 @@
 #include "buttons.h"
 #include "pixels.h"
 
+#define SENSOR_PIN 3
 #define TRIGGER_PIN 2
 #define PIXEL_PIN 11
 #define PIXEL_COUNT 36
@@ -21,8 +22,8 @@ void setup(){
   pinMode(PIXEL_PIN, OUTPUT);
   pinMode(TRIGGER_PIN, INPUT);
   // --- Lcd Setup ---
-  lcd.begin(16, 2);               // start the library
-  lcd.setCursor(2, 0);             // set the LCD cursor   position
+  lcd.begin(16, 2);           // start the library
+  lcd.setCursor(2, 0);        // set the LCD cursor   position
   lcd.print("Delay Timer:");  // print a simple message on the LCD
   lcd.setCursor(5, 1);
   lcd.print(delay_timer);
@@ -60,7 +61,7 @@ void loop(){
     lcd.print(delay_timer);
   }
   // if(digitalRead(TRIGGER_PIN) || trigger){
-  if(trigger){
+  if(trigger || digitalRead(SENSOR_PIN)){
     stepOne(pixels, 333, 3, 0x640000);
     stepTwo(pixels, delay_timer, 0x640000);
     stepTree(pixels, 0x646464, TRIGGER_PIN);
