@@ -44,7 +44,17 @@ void loop(){
         delay_timer -= 200;
         break;
       case btnSELECT:
+        lcd.clear();
+        lcd.setCursor(3, 0);
+        lcd.print("Timer Saved!");
         EEPROM.writeLong(EEPROM_ADR, delay_timer);
+        delay(1000);
+        lcd.clear();
+        lcd.setCursor(2, 0);        // set the LCD cursor   position
+        lcd.print("Delay Timer:");  // print a simple message on the LCD
+        lcd.setCursor(5, 1);
+        lcd.print(delay_timer);
+        lcd.print("ms");
         break;
       case btnRIGHT:
         trigger = true;
@@ -62,10 +72,21 @@ void loop(){
   }
   // if(trigger || digitalRead(SENSOR_PIN)){
   if(digitalRead(SENSOR_PIN)){
+    lcd.clear();
+    lcd.setCursor(4,0);
+    lcd.print("Running");
     stepOne(pixels, 333, 3, 0x640000);
     stepTwo(pixels, delay_timer, 0x640000);
     stepTree(pixels, 0x646464, TRIGGER_PIN);
     stepFour(pixels, 0x006400);
     trigger = false;
+    // --- Set screen again!
+    lcd.clear();
+    lcd.setCursor(2, 0);        // set the LCD cursor   position
+    lcd.print("Delay Timer:");  // print a simple message on the LCD
+    lcd.setCursor(5, 1);
+    lcd.print(delay_timer);
+    lcd.print("ms");
+
   }
 }
